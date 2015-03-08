@@ -2,6 +2,8 @@
 
 'use strict';
 
+var curr_email = null;
+
 if (process.env.VCAP_SERVICES) {
    var env = JSON.parse(process.env.VCAP_SERVICES);
    var mongo = env['mongodb-2.4'][0].credentials;
@@ -10,6 +12,10 @@ if (process.env.VCAP_SERVICES) {
         "url": "mongodb://localhost/db"
       }
 };
+
+module.exports.getEmail = function() {
+  return curr_email;
+}
 
 module.exports.login = function(req, res) {
     console.log("Logging in user");
@@ -25,6 +31,8 @@ module.exports.login = function(req, res) {
             if(err) throw err;
             cursor.toArray(function(err, items) {
                 if(items.length > 0) {
+                    // Successfully logged in
+                    curr_email = email;
                     res.redirect(account_type);
                 } else {
                     res.render('signin', {error: "Invalid login credentials."});
@@ -32,6 +40,11 @@ module.exports.login = function(req, res) {
             });
         });
       });
+}
+
+module.exports.logout = function(req, res) {
+  console.log("logging out");
+  curr_email = null;
 }
 
 module.exports.register= function(req, res) {
@@ -53,6 +66,7 @@ module.exports.register= function(req, res) {
                 } else {
                     collection.insert({'email': email, 'password': password, 'account_type': account_type}, function(err, resp) {
                         if(err) throw err;
+                        curr_email = email;
                         res.redirect(account_type);
                     });
                 }
@@ -67,7 +81,8 @@ module.exports.list_logins = function(req, res) {
     var collection = conn.collection('logins');
    
     // list messages
-    collection.find({"email" : "colin"}, function(err, cursor) {
+    collection.find({"email" : curr_email}, function(err, cursor) {
+      if(err) throw err;
       cursor.toArray(function(err, items) {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         for (var i=0; i < items.length; i++) {
@@ -84,12 +99,35 @@ module.exports.submit_application = function(req, res) {
   require('mongodb').connect(mongo.url, function(err, conn) {
     var collection = conn.collection('applicants');
 
-    var application = {'firstname': req.body.firstname, 'lastname': req.body.lastname, 'email': req.body.email, 'personal_website': req.body.personal_website, 'salary': req.body.salary, 'github': req.body.github, 'projecteuler': req.body.projecteuler, 'challengepost': req.body.challengepost, 'answers': [req.body.q1, req.body.q2, req.body.q3, req.body.q4, req.body.q5]};
+    var application = {'firstname': req.body.firstname, 'lastname': req.body.lastname, 'personal_website': req.body.personal_website, 'salary': req.body.salary, 'github': req.body.github, 'challengepost': req.body.challengepost, 'answers': [req.body.q1, req.body.q2, req.body.q3, req.body.q4, req.body.q5]};
 
-    collection.update({'_id': email}, application, {'upsert': true}, function(err, resp) {
+    collection.update({'_id': curr_email}, application, {'upsert': true}, function(err, resp) {
       if(err) throw err;
-      console.log("returned and inserted");
-      console.log(resp);
+      res.redirect('applicant');
+    });
+  });
+}
+
+module.exports.load_application = function(req, res) {
+  console.log("loading application");
+  require('mongodb').connect(mongo.url, function(err, conn) {
+    var collection = conn.collection('applicants');
+
+    collection.find({'_id': curr_email}, function(err, resp) {
+      console.log("returned application");
+      if(err) throw err;
+      resp.toArray(function(err, items) {
+        if(err) throw err;
+        console.log(items);
+        if(items.length > 0) {
+          //Application found
+          console.log("set");
+          items[0]["email"] = curr_email;
+          res.render('applicant', items[0]);
+        } else {
+          res.render('applicant', {firstname: "", lastname: "", email: curr_email, personal_website: "", salary: "", github: "", challengepost: "", answers: ["", "", "", "", ""]});
+        }
+      });
     });
   });
 }

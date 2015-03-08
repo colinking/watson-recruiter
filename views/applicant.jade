@@ -5,34 +5,32 @@ block row-content
 	div.row
 		div.col-md-12
 			h2 Application Page
-				form(action='submit_application', type='post')
+				form(action='submit_application', method='post')
 					h4 Biographical Information
 						p First Name
-						input(type='text', name='firstname' required)
+						input(type='text', name='firstname' required, value="#{firstname}")
 						p Last Name
-						input(type='text', name='lastname' required)
+						input(type='text', name='lastname' required, value="#{lastname}")
 						p Email
-						input(type='text', name='email' required)
+						input(type='text', name='email' required, disabled, value="#{email}")
 						p Personal Website (optional)
-						input(type='text', name='personal_website')
+						input(type='text', name='personal_website', value="#{personal_website}" required)
 						p Desired Salary
-						input(type='text', name='salary')
+						input(type='text', name='salary', value="#{salary}" required)
 					h4 Technical Links
 						p Github
-						input(type='text', name='github' required)
-						p Project Euler (optional)
-						input(type='text', name='projecteuler')
-						p Challenge Post (optional)
-						input(type='text', name='challengepost')
+						input(type='text', name='github' required, value="#{github}")
+						p Challenge Post
+						input(type='text', name='challengepost', value="#{challengepost}")
 					h4 Free Response
 						p Tell us a bit about yourself.
-						input(type='text', name='q1', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required)
+						input(type='text', name='q1', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[0]}")
 						p Tell us a bit about yourself.
-						input(type='text', name='q2', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required)
+						input(type='text', name='q2', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[1]}")
 						p Tell us a bit about yourself.
-						input(type='text', name='q3', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required)
+						input(type='text', name='q3', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[2]}")
 						p Tell us a bit about yourself.
-						input(type='text', name='q4', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required)
+						input(type='text', name='q4', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[3]}")
 						p Tell us a bit about yourself.
-						input(type='text', name='q5', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required)
+						input(type='text', name='q5', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[4]}")
 					button.btn(type='submit') Submit Application

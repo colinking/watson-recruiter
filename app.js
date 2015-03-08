@@ -31,6 +31,7 @@ app.engine('html', require('ejs').renderFile);
 //
 // GET REQUESTS
 //
+
 var ACCESS_TOKEN = "OPSLW2EC22FR5Z2ABTPIAWL7P7MPJFDM";
 
 function witProcess(phrase) {
@@ -64,21 +65,37 @@ app.get('/signin', function(req, res) {
 
 app.get('/register', function(req, res) {
 	res.render('register');
+  app.locals.errortext = "aoifaoifna";
 });
 
 app.get('/applicant/', function(req, res) {
-	res.render('applicant');
+  if(mongo_handler.getEmail() == null) {
+    res.redirect('/');
+  }
+  // Check  mongo to see if the user has submitted an app already
+  mongo_handler.load_application(req, res);
+  console.log("right befire render");
+  console.log('after');
 });
 
 app.get('/employer/', function(req, res) {
+  if(mongo_handler.getEmail() == null) {
+    res.redirect('/');
+  }
   res.render('employer');
 });
 
 app.get('/ideal', function(req, res) {
+  if(mongo_handler.getEmail() == null) {
+    res.redirect('/');
+  }
   res.render('ideal');
 });
 
 app.get('/list_logins', function(req, res) {
+  if(mongo_handler.getEmail() == null) {
+    res.redirect('/');
+  }
   sessionHandler.list_logins(req, res);
 });
 
@@ -87,7 +104,9 @@ app.get('/list_logins', function(req, res) {
 //
 
 app.post('/submit_application', function(req, res) {
-  console.log('soughsogi');
+  if(mongo_handler.getEmail() == null) {
+    res.redirect('/');
+  }
   mongo_handler.submit_application(req, res);
 });
 
