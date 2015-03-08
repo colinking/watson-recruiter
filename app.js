@@ -18,7 +18,7 @@
 
 var express = require('express'),
   app = express(),
-  sessionHandler = require('./public/js/session'),
+  mongo_handler = require('./public/js/mongo'),
   wit = require('node-wit');
 
 // Bootstrap application settings
@@ -82,6 +82,11 @@ app.get('/list_logins', function(req, res) {
 // POST REQUESTS
 //
 
+app.post('/submit_application', function(req, res) {
+  console.log('soughsogi');
+  mongo_handler.submit_application(req, res);
+});
+
 app.post('/listen', function(req, res) {
   'use strict';
 
@@ -96,11 +101,11 @@ app.post('/listen', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
-	sessionHandler.login(req, res);
+	mongo_handler.login(req, res);
 });
 
 app.post('/register', function(req, res) {
-	sessionHandler.register(req, res);
+	mongo_handler.register(req, res);
 });
 
 var port = process.env.VCAP_APP_PORT || 3000;

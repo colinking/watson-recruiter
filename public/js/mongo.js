@@ -78,3 +78,19 @@ module.exports.list_logins = function(req, res) {
     });
   });
 }
+
+module.exports.submit_application = function(req, res) {
+  console.log('submitting app');
+  require('mongodb').connect(mongo.url, function(err, conn) {
+    var collection = conn.collection('applicants');
+
+    var application = {'firstname': req.body.firstname, 'lastname': req.body.lastname, 'email': req.body.email, 'personal_website': req.body.personal_website, 'salary': req.body.salary, 'github': req.body.github, 'projecteuler': req.body.projecteuler, 'challengepost': req.body.challengepost, 'answers': [req.body.q1, req.body.q2, req.body.q3, req.body.q4, req.body.q5]};
+
+    collection.update({'_id': email}, application, {'upsert': true}, function(err, resp) {
+      if(err) throw err;
+      console.log("returned and inserted");
+      console.log(resp);
+    });
+  });
+}
+

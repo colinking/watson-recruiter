@@ -1,3 +1,38 @@
 //- index.jade
 extends ./layout.jade
 
+block row-content
+	div.row
+		div.col-md-12
+			h2 Application Page
+				form(action='submit_application', type='post')
+					h4 Biographical Information
+						p First Name
+						input(type='text', name='firstname' required)
+						p Last Name
+						input(type='text', name='lastname' required)
+						p Email
+						input(type='text', name='email' required)
+						p Personal Website (optional)
+						input(type='text', name='personal_website')
+						p Desired Salary
+						input(type='text', name='salary')
+					h4 Technical Links
+						p Github
+						input(type='text', name='github' required)
+						p Project Euler (optional)
+						input(type='text', name='projecteuler')
+						p Challenge Post (optional)
+						input(type='text', name='challengepost')
+					h4 Free Response
+						p Tell us a bit about yourself.
+						input(type='text', name='q1', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required)
+						p Tell us a bit about yourself.
+						input(type='text', name='q2', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required)
+						p Tell us a bit about yourself.
+						input(type='text', name='q3', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required)
+						p Tell us a bit about yourself.
+						input(type='text', name='q4', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required)
+						p Tell us a bit about yourself.
+						input(type='text', name='q5', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required)
+					button.btn(type='submit') Submit Application
