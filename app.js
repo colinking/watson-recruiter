@@ -24,6 +24,10 @@ var express = require('express'),
 // Bootstrap application settings
 require('./config/express')(app);
 
+
+app.set('views', __dirname + '/views');
+app.engine('html', require('ejs').renderFile);
+
 //
 // GET REQUESTS
 //
@@ -51,7 +55,7 @@ function witProcess(phrase) {
 
 // render index page
 app.get('/', function(req, res) {
-  res.render('index');
+  res.render('index.html');
 });
 
 app.get('/signin', function(req, res) {
