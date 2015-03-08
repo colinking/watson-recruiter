@@ -9,7 +9,8 @@
     "errorhandler": "~1.3.3",
     "watson-developer-cloud-alpha": "~0.10.4",
     "mongodb": "*",
-    "node-wit": "1.0.0"
+    "node-wit": "1.0.0",
+    "ejs": "*"
   },
   "repository": {
     "type": "git",
