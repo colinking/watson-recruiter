@@ -1,0 +1,21 @@
+//- index.jade
+extends ./layout.jade
+
+block row-content
+  div.row
+    h2 Register below
+    p #{error}
+    form(action='register', method='post')
+      p Email
+      input(type='text', name='email', required)
+      p Password
+      input(type='text', name='password', required)
+      p What kind of account do you want to register for?
+      input(type='radio', name='account_type', value='employer', required)
+      |  Employer
+      br
+      input(type='radio', name='account_type', value='applicant', required)
+      |  Applicant
+      br
+      button.btn(type='submit') Get Started
+      br

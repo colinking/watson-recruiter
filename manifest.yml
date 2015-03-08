@@ -1,0 +1,12 @@
+applications:
+- services:
+  - watson-autorecruitment-personality_insights
+  - watson-autorecruitment-MonitoringAndAnalytics
+  disk_quota: 1024M
+  host: watson-autorecruitment
+  name: watson-autorecruitment
+  command: node app.js
+  path: .
+  domain: mybluemix.net
+  instances: 1
+  memory: 512M

@@ -1,0 +1,23 @@
+//- layout.jade
+doctype html
+html(lang='en')
+  head
+    block title
+      title IBM Watson Auto-Recruiter
+      img(src='watson.jpg', class="img-thumbnail")
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
+  body
+    div.container
+      div.row
+        div.col-lg-12
+          div.row.top-nav
+            div.col-lg-12
+              h1
+                a.left(href='/') IBM Watson Auto-Recruiter
+      block row-content
+
+    link(rel='stylesheet', href='/css/bootstrap.css')
+    script(src='/js/bootstrap.min.js')
