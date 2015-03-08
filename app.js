@@ -76,17 +76,18 @@ app.get('/applicant/', function(req, res) {
 });
 
 app.get('/employer/', function(req, res) {
-  if(mongo_handler.getEmail() == null) {
-    res.redirect('/');
-  }
-  res.render('employer');
+  // if(mongo_handler.getEmail() == null) {
+  //   res.redirect('/');
+  // }
+  res.render('employer.html');
 });
 
 app.get('/ideal', function(req, res) {
   if(mongo_handler.getEmail() == null) {
     res.redirect('/');
   }
-  res.render('ideal');
+  mongo_handler.createTradeoff(req, res);
+  res.render('ideal.html');
 });
 
 app.get('/list_logins', function(req, res) {
@@ -99,6 +100,10 @@ app.get('/list_logins', function(req, res) {
 //
 // POST REQUESTS
 //
+
+app.post('/inputideals', function(req, res) {
+  mongo_handler.inputideals(req, res);
+});
 
 app.post('/submit_application', function(req, res) {
   if(mongo_handler.getEmail() == null) {

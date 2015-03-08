@@ -3,14 +3,16 @@
   "version": "0.1.0",
   "description": "An automatic hiring service using IBM Bluemix + Watson",
   "dependencies": {
+    "body-parser": "~1.11.0",
+    "ejs": "*",
+    "errorhandler": "~1.3.3",
     "express": "~4.11.2",
     "jade": "~1.9.2",
-    "body-parser": "~1.11.0",
-    "errorhandler": "~1.3.3",
-    "watson-developer-cloud-alpha": "~0.10.4",
     "mongodb": "*",
     "node-wit": "1.0.0",
-    "ejs": "*"
+    "request": "^2.53.0",
+    "watson-developer-cloud-alpha": "~0.10.4",
+    "hippie": "*"
   },
   "repository": {
     "type": "git",

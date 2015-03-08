@@ -5,32 +5,64 @@ block row-content
 	div.row
 		div.col-md-12
 			h2 Application Page
-				form(action='submit_application', method='post')
+				form.form-horizontal(action='submit_application', method='post')
 					h4 Biographical Information
-						p First Name
-						input(type='text', name='firstname' required, value="#{firstname}")
-						p Last Name
-						input(type='text', name='lastname' required, value="#{lastname}")
-						p Email
-						input(type='text', name='email' required, disabled, value="#{email}")
-						p Personal Website (optional)
-						input(type='text', name='personal_website', value="#{personal_website}" required)
-						p Desired Salary
-						input(type='text', name='salary', value="#{salary}" required)
+					div.form-group
+						label(class='col-sm-2 control-label', for='firstname') First Name
+							div.col-sm-10
+								input.form-control(type='text', name='firstname' required, value="#{firstname}")
+
+					div.form-group
+						label(class='col-sm-2 control-label', for='lastname') Last Name
+							div.col-sm-10
+								input.form-control(type='text', name='lastname' required, value="#{lastname}")
+
+					div.form-group
+						label(class='col-sm-2 control-label', for='email') Email
+							div.col-sm-10
+								input.form-control(type='text', name='email' required, disabled, value="#{email}")
+
+					div.form-group
+						label(class='col-sm-2 control-label', for='personal_website') Personal Website (optional)
+							div.col-sm-10
+								input.form-control(type='text', name='personal_website', value="#{personal_website}" required)
+
+					div.form-group
+						label(class='col-sm-2 control-label', for='salary') Desired Salary
+							div.col-sm-10
+								input.form-control(type='text', name='salary', value="#{salary}" required)
 					h4 Technical Links
-						p Github
-						input(type='text', name='github' required, value="#{github}")
-						p Challenge Post
-						input(type='text', name='challengepost', value="#{challengepost}")
+					div.form-group
+						label(class='col-sm-2 control-label', for='github') Github
+							div.col-sm-10
+								input.form-control(type='text', name='github' required, value="#{github}")
+
+					div.form-group
+						label(class='col-sm-2 control-label', for='challengepost') ChallengePost
+							div.col-sm-10
+								input.form-control(type='text', name='challengepost', value="#{challengepost}")
 					h4 Free Response
-						p Tell us a bit about yourself.
-						input(type='text', name='q1', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[0]}")
-						p Tell us a bit about yourself.
-						input(type='text', name='q2', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[1]}")
-						p Tell us a bit about yourself.
-						input(type='text', name='q3', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[2]}")
-						p Tell us a bit about yourself.
-						input(type='text', name='q4', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[3]}")
-						p Tell us a bit about yourself.
-						input(type='text', name='q5', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[4]}")
-					button.btn(type='submit') Submit Application
+					div.form-group
+						label(class='col-sm-2 control-label', for='q1') Tell a bit about yourself.
+							div.col-sm-10
+								input.form-control(type='text', name='q1', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[0]}")
+					div.form-group
+						label(class='col-sm-2 control-label', for='q2') Tell a bit about yourself.
+							div.col-sm-10
+								input.form-control(type='text', name='q2', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[1]}")
+					div.form-group
+						label(class='col-sm-2 control-label', for='q3') Tell a bit about yourself.
+							div.col-sm-10
+								input.form-control(type='text', name='q3', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[2]}")
+					div.form-group
+						label(class='col-sm-2 control-label', for='q4') Tell a bit about yourself.
+							div.col-sm-10
+								input.form-control(type='text', name='q4', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[3]}")
+					div.form-group
+						label(class='col-sm-2 control-label', for='q5') Tell a bit about yourself.
+							div.col-sm-10
+								input.form-control(type='text', name='q5', rows='8', placeholder='Please enter the text to analyze (minimum of 100 words)...', required, value="#{answers[4]}")
+
+					div.form-group
+						div(class='col-sm-offset-2 col-sm-10')
+							button(class='btn btn-default', type='submit') Submit Application
