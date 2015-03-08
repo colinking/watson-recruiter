@@ -2,7 +2,10 @@
 
 'use strict';
 
-var curr_email = null;
+var curr_email = null,
+  bluemix = require('../../config/bluemix'),
+  watson = require('watson-developer-cloud-alpha'),
+  extend = require('util')._extend;
 
 if (process.env.VCAP_SERVICES) {
    var env = JSON.parse(process.env.VCAP_SERVICES);
@@ -12,6 +15,17 @@ if (process.env.VCAP_SERVICES) {
         "url": "mongodb://localhost/db"
       }
 };
+
+// if bluemix credentials exists, then override local
+var pers_credentials = extend({
+    version: 'v2',
+    url: 'https://gateway.watsonplatform.net/personality-insights/api',
+    username: '206b0a26-dcdd-4400-9b51-43550c6c1cdc',
+    password: 'sNocS9xzpZlm'
+}, bluemix.getServiceCreds('personality_insights')); // VCAP_SERVICES
+
+// Create the service wrapper
+var personalityInsights = new watson.personality_insights(pers_credentials);
 
 module.exports.getEmail = function() {
   return curr_email;
@@ -103,6 +117,17 @@ module.exports.submit_application = function(req, res) {
 
     collection.update({'_id': curr_email}, application, {'upsert': true}, function(err, resp) {
       if(err) throw err;
+
+      // Analyze all of the answers
+      console.log("About to search for personality insights on: ");
+      //var content_list_container = {body: [{content: req.body.q1}]}
+      //console.log(content_list_container);
+      personalityInsights.profile({text: req.body.q1}, function(err, profile) {
+        if(err) throw err;
+        console.log("The profile is: ");
+        console.log(profile);
+      });
+
       res.redirect('applicant');
     });
   });

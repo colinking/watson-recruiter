@@ -65,7 +65,6 @@ app.get('/signin', function(req, res) {
 
 app.get('/register', function(req, res) {
 	res.render('register');
-  app.locals.errortext = "aoifaoifna";
 });
 
 app.get('/applicant/', function(req, res) {
@@ -74,8 +73,6 @@ app.get('/applicant/', function(req, res) {
   }
   // Check  mongo to see if the user has submitted an app already
   mongo_handler.load_application(req, res);
-  console.log("right befire render");
-  console.log('after');
 });
 
 app.get('/employer/', function(req, res) {
